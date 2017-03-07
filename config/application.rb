@@ -32,7 +32,7 @@ module Thinknetica
       g.assets          false
       g.helper          false
       g.orm             :active_record
-      g.template_engine :slim
+      g.template_engine :haml
       g.stylesheets     false
       g.javascripts     false
     end
