@@ -11,7 +11,7 @@ class AnswersController < ApplicationController
   def edit; end
 
   def create
-    @answer = @question.answers.create(answer_params)
+    @answer = @question.answers.build(answer_params)
 
     if @answer.save
       redirect_to @answer
