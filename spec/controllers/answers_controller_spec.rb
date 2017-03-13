@@ -60,7 +60,7 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'saves the new answer in the database' do
-        expect { create_valid_answer }.to change(Answer, :count).by(1)
+        expect { create_valid_answer }.to change(question.answers, :count).by(1)
       end
 
       it 'redirects to show view' do
@@ -79,7 +79,7 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'does not save the answer' do
-        expect { create_invalid_answer }.not_to change(Answer, :count)
+        expect { create_invalid_answer }.not_to change(question.answers, :count)
       end
 
       it 're-renders new view' do
@@ -142,7 +142,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'deletes answer' do
         expect do
           delete :destroy, params: { id: answer }
-        end.to change(Answer, :count).by(-1)
+        end.to change(question.answers, :count).by(-1)
       end
 
       it 'redirects to index view' do
