@@ -1,7 +1,18 @@
 FactoryGirl.define do
   factory :answer do
-    question_id 1
-    title "MyString"
+    association :question
     body "MyText"
+  end
+
+  factory :invalid_answer, class: Answer do
+    association :question
+    title nil
+    body nil
+  end
+
+  factory :new_answer, class: Answer do
+    association :question
+    title 'New Title'
+    body 'new body'
   end
 end

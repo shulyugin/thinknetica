@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_model_serializers', '~> 0.10'
-gem 'haml'
+gem 'haml-rails', '~> 0.9'
 gem 'jquery-rails'
 gem 'nenv'
 gem 'pg', '~> 0.18'
@@ -23,6 +23,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
 end
 
 group :development do
