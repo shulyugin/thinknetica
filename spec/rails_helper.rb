@@ -48,4 +48,10 @@ RSpec.configure do |config|
 
   # Simply use FactoryGirl's methods by names
   config.include FactoryGirl::Syntax::Methods
+
+  # Add test helpers from devise for controllers tests
+  config.include Devise::Test::ControllerHelpers, type: :controller
+
+  # Rspec macroses and helpers
+  config.include FeaturesHelpers, type: :feature
 end
