@@ -6,7 +6,9 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_model_serializers', '~> 0.10'
+gem 'devise'
 gem 'haml-rails', '~> 0.9'
+gem 'html2haml'
 gem 'jquery-rails'
 gem 'nenv'
 gem 'pg', '~> 0.18'
