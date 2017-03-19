@@ -20,7 +20,7 @@ feature 'Create question', %q(
     expect(page).to have_content 'Your question successfully created'
   end
 
-  scenario 'Not authenticated user is trying to create a question' do
+  scenario 'Not authenticated user fails to create a question' do
     visit questions_path
     click_on 'Ask a question'
 
