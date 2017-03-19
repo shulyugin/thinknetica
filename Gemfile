@@ -22,8 +22,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails'
   gem 'rails-controller-testing'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -37,6 +37,9 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
+  gem 'launchy'
+  gem 'poltergeist'
   gem 'shoulda-matchers'
 end
 
