@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'View question list', %q(
   In order to be able to read questions
-  As a visitor
+  As a visitor or a user
   I want to be able to view a list of questions
 ) do
 
