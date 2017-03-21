@@ -5,7 +5,7 @@
     %li.mdl-list__item.mdl-list__item--two-line
       %span.mdl-list__item-primary-content
         %i.material-icons.mdl-list__item-avatar person
-        %span= q.title
+        = link_to q.title, question_path(q), { class: 'mdl-list__item-secondary-action' }
         %span.mdl-list__item-sub-title= q.body
 
 .mdl-grid

@@ -1,0 +1,40 @@
+= link_to 'Back to all', questions_path
+
+%h3= @question.title
+%p= @question.body
+
+- if @question.user == current_user
+  = link_to 'Delete question', question_path(@question), method: :delete
+
+- if @answers.present?
+  %ul.mdl-list
+    - @answers.each do |answer|
+      %li.mdl-list__item.mdl-list__item--two-line
+        %span.mdl-list__item-primary-content
+          %i.material-icons.mdl-list__item-avatar person
+          %span.mdl-list__item-sub-title= answer.body
+        - if answer.user == current_user
+          %span.mdl-list__item-secondary-content
+            %span.mdl-list__item-secondary-info Delete
+            = link_to answer_path(answer), class: 'mdl-list__item-secondary-action', method: :delete do
+              %i.material-icons delete
+  .mdl-grid
+    .mdl-layout-spacer
+    %div
+      %p= "Count: #{@answers.count}"
+
+- else
+  .mdl-grid.mdl-color--grey-100
+    %p There is no answers to this question
+
+- if user_signed_in?
+  = form_for [@question, @question.answers.new] do |f|
+    = f.label :body
+    = f.text_area :body
+    = f.submit 'Answer the question'
+- else
+  %p
+    = link_to 'Sign in', new_user_session_path
+    = ' or '
+    = link_to 'register', new_user_registration_path
+    = ' to answer the question'

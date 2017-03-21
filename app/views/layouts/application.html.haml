@@ -16,8 +16,10 @@
       .mdl-cell.mdl-cell--3-col.mdl-cell--1-col-tablet
       .mdl-cell.mdl-cell--6-col.mdl-cell--8-col-tablet
         - if notice.present?
-          %p.mdl-color--amber-600.notice= notice
+          .mdl-grid
+            %p.mdl-color--amber-600.notice= notice
         - elsif alert.present?
-          %p.mdl-color-text--red-900.notice= alert
+          .mdl-grid
+            %p.mdl-color-text--red-900.notice= alert
         = yield
       .mdl-cell.mdl-cell--3-col.mdl-cell--1-col-tablet
