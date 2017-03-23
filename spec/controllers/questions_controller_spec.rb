@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question) }
+  let(:some_user) { create(:user) }
 
   describe 'GET #index' do
     let(:questions) { create_pair(:question) }
@@ -144,7 +145,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     before { question }
 
-    it 'deletes question' do
+    it 'author deletes his question' do
       expect do
         delete :destroy, params: { id: question }
       end.to change(Question, :count).by(-1)
@@ -153,6 +154,13 @@ RSpec.describe QuestionsController, type: :controller do
     it 'redirects to index view' do
       delete :destroy, params: { id: question }
       expect(response).to redirect_to questions_path
+    end
+
+    it 'not an author fails to delete someone\'s question' do
+      sign_in some_user
+      expect do
+        delete :destroy, params: { id: question }
+      end.to change(Question, :count).by(0)
     end
   end
 end

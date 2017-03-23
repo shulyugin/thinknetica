@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let(:question) { create(:question) }
   let(:answer) { create(:answer, question: question) }
+  let(:some_user) { create(:user) }
 
   describe 'GET #show' do
     before { sign_in answer.user }
@@ -151,7 +152,7 @@ RSpec.describe AnswersController, type: :controller do
 
       before { answer }
 
-      it 'deletes answer' do
+      it 'author deletes his answer' do
         expect do
           delete :destroy, params: { id: answer }
         end.to change(question.answers, :count).by(-1)
@@ -160,6 +161,13 @@ RSpec.describe AnswersController, type: :controller do
       it 'redirects to question view' do
         delete :destroy, params: { id: answer }
         expect(response).to redirect_to question_path(assigns(:answer).question)
+      end
+
+      it 'not an author fails to delete someone\'s answer' do
+        sign_in some_user
+        expect do
+          delete :destroy, params: { id: answer }
+        end.to change(question.answers, :count).by(0)
       end
     end
   end
