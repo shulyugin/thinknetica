@@ -1,19 +1,19 @@
 FactoryGirl.define do
   factory :answer do
     association :question
-    body "AnswerText"
+    body 'answer body'
     user
-  end
 
-  factory :invalid_answer, class: Answer do
-    association :question
-    title nil
-    body nil
-  end
+    factory :unique_answer do
+      sequence(:body) { |n| "answer body #{n}" }
+    end
 
-  factory :new_answer, class: Answer do
-    association :question
-    title 'New Title'
-    body 'new body'
+    factory :new_answer do
+      body 'new answer body'
+    end
+
+    factory :invalid_answer do
+      body nil
+    end
   end
 end
