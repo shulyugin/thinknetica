@@ -7,15 +7,14 @@ feature 'View question list', %q(
 ) do
 
   given(:user) { create(:user) }
-  given!(:questions) { create_pair(:question) }
+  given!(:questions) { create_pair(:unique_question) }
 
   after do
     expect(page).to have_content "Count: #{questions.count}"
 
-    page_questions = page.all('ul > li').map(&:text)
-    page_questions.each_with_index do |text_content, i|
-      expect(text_content).to include questions[i].title
-      expect(text_content).to include questions[i].body
+    questions.each do |question|
+      expect(page).to have_content question.title
+      expect(page).to have_content question.body
     end
   end
 
