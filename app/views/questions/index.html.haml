@@ -1,0 +1,17 @@
+%h3 Questions
+
+%ul.mdl-list
+  - @questions.each do |q|
+    %li.mdl-list__item.mdl-list__item--two-line
+      %span.mdl-list__item-primary-content
+        %i.material-icons.mdl-list__item-avatar person
+        = link_to q.title, question_path(q), { class: 'mdl-list__item-secondary-action' }
+        %span.mdl-list__item-sub-title= q.body
+
+.mdl-grid
+  .mdl-layout-spacer
+  %div
+    %p= "Count: #{@questions.count}"
+    = link_to new_question_path, { tag: 'button', id: 'add-question', class: 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored' } do
+      %i.material-icons add
+    .mdl-tooltip{'data-mdl-for' => 'add-question'} Add new question

@@ -22,10 +22,12 @@ module Thinknetica
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.i18n.default_locale = :ru
-    config.i18n.available_locales = [:ru, :en]
+    # Setup I18n
+    config.i18n.default_locale = :en
+    config.i18n.available_locales = [:en, :ru]
     config.i18n.enforce_available_locales = true
     # config.i18n.fallbacks = true
+
     config.time_zone = 'Moscow'
 
     config.generators do |g|

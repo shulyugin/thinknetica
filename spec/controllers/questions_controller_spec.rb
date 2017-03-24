@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question) }
+  let(:some_user) { create(:user) }
 
   describe 'GET #index' do
     let(:questions) { create_pair(:question) }
@@ -36,6 +37,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
+    before { sign_in question.user }
+
     before { get :new }
 
     it 'assigns a new Question to @question' do
@@ -48,6 +51,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #edit' do
+    before { sign_in question.user }
+
     before { get :edit, params: { id: question } }
 
     it 'assigns the requested Question to @question' do
@@ -60,6 +65,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
+    before { sign_in question.user }
+
     context 'with valid attributes' do
       it 'saves the new question in the database' do
         expect do
@@ -88,6 +95,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'PATCH #update' do
+    before { sign_in question.user }
+
     context 'with valid attributes' do
       it 'assigns the requested Question to @question' do
         patch :update,
@@ -132,9 +141,11 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
+    before { sign_in question.user }
+
     before { question }
 
-    it 'deletes question' do
+    it 'author deletes his question' do
       expect do
         delete :destroy, params: { id: question }
       end.to change(Question, :count).by(-1)
@@ -143,6 +154,13 @@ RSpec.describe QuestionsController, type: :controller do
     it 'redirects to index view' do
       delete :destroy, params: { id: question }
       expect(response).to redirect_to questions_path
+    end
+
+    it 'not an author fails to delete someone\'s question' do
+      sign_in some_user
+      expect do
+        delete :destroy, params: { id: question }
+      end.to change(Question, :count).by(0)
     end
   end
 end
