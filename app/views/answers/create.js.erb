@@ -1,0 +1,7 @@
+$('[data-answers]').append('<%= j render 'list-item', answer: @answer %>');
+$('[data-no-answers]').remove();
+
+var count = $('[data-answers-count]').text() | 0;
+$('[data-answers-count]').text(++count);
+
+$('#answer_body').val('');
