@@ -14,12 +14,7 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.build(answer_params)
     @answer.user_id = current_user.id if user_signed_in?
-
-    if @answer.save
-      redirect_to @answer.question
-    else
-      render :new
-    end
+    @answer.save
   end
 
   def update

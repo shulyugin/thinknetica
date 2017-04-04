@@ -59,7 +59,8 @@ RSpec.describe AnswersController, type: :controller do
         post :create,
              params: {
                answer: attributes_for(:answer),
-               question_id: question
+               question_id: question,
+               format: :js
              }
       end
 
@@ -72,9 +73,9 @@ RSpec.describe AnswersController, type: :controller do
         expect { create_valid_answer }.to change(question.answers, :count).by(1)
       end
 
-      it 'redirects to show view' do
+      it 'renders create template' do
         create_valid_answer
-        expect(response).to redirect_to question_path(assigns(:answer).question)
+        expect(response).to render_template 'answers/create'
       end
     end
 
@@ -83,7 +84,8 @@ RSpec.describe AnswersController, type: :controller do
         post :create,
              params: {
                answer: attributes_for(:invalid_answer),
-               question_id: question
+               question_id: question,
+               format: :js
              }
       end
 
@@ -91,9 +93,9 @@ RSpec.describe AnswersController, type: :controller do
         expect { create_invalid_answer }.not_to change(question.answers, :count)
       end
 
-      it 're-renders new view' do
+      it 'renders create' do
         create_invalid_answer
-        expect(response).to render_template :new
+        expect(response).to render_template 'answers/create'
       end
     end
   end

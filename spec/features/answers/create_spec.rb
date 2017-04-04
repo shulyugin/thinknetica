@@ -9,13 +9,14 @@ feature 'Create answer', %q(
   given(:user) { create(:user) }
   given(:question) { create(:question) }
 
-  scenario 'Authenticated user creates an answer' do
+  scenario 'Authenticated user creates an answer', js: true do
     sign_in(user)
 
     visit question_path(question)
     fill_in 'answer[body]', with: 'Test body of test answer'
     click_on 'Answer the question'
 
+    expect(current_path).to eq question_path(question)
     expect(page).to have_content 'Test body of test answer'
   end
 

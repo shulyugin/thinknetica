@@ -6,29 +6,23 @@
 - if user_signed_in? && @question.user_id == current_user.id
   = link_to 'Delete question', question_path(@question), method: :delete
 
-- if @answers.present?
-  %ul.mdl-list
-    - @answers.each do |answer|
-      %li.mdl-list__item.mdl-list__item--two-line
-        %span.mdl-list__item-primary-content
-          %i.material-icons.mdl-list__item-avatar person
-          %span.mdl-list__item-sub-title= answer.body
-        - if user_signed_in? && answer.user_id == current_user.id
-          %span.mdl-list__item-secondary-content
-            %span.mdl-list__item-secondary-info Delete
-            = link_to answer_path(answer), class: 'mdl-list__item-secondary-action', method: :delete do
-              %i.material-icons delete
-  .mdl-grid
-    .mdl-layout-spacer
-    %div
-      %p= "Count: #{@answers.count}"
+%ul.mdl-list{'data-answers' => true}
+  - @answers.each do |answer|
+    = render 'answers/list-item', answer: answer
 
-- else
-  .mdl-grid.mdl-color--grey-100
+.mdl-grid
+  .mdl-layout-spacer
+  %div
+    %p
+      %span= 'Count: '
+      %span{'data-answers-count' => true}= "#{@answers.count}"
+
+- unless @answers.present?
+  .mdl-grid.mdl-color--grey-100{'data-no-answers' => true}
     %p There is no answers to this question
 
 - if user_signed_in?
-  = form_for [@question, @question.answers.new] do |f|
+  = form_for [@question, @question.answers.new], remote: true do |f|
     = f.label :body
     = f.text_area :body
     = f.submit 'Answer the question'
